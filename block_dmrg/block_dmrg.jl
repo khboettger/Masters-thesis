@@ -10,10 +10,10 @@ using Arpack
 
 ITensors.disable_warn_order()
 
-include("../../models/lattice_models.jl")
-include("../../models/site_models.jl")
-include("../../riemann_cg/riemann_eigs.jl")
-include("../../riemann_cg/helper_functions/optimized_eigen.jl")
+include("../models/lattice_models.jl")
+include("../models/site_models.jl")
+include("../riemann_cg/riemann_eigs.jl")
+include("../riemann_cg/helper_functions/optimized_eigen.jl")
 include("helper_functions/block_dmrg_sweep.jl")
 include("helper_functions/collect_eigenstates.jl")
 include("helper_functions/combiner_state_1.jl")
@@ -100,7 +100,7 @@ function block_dmrg(
     update = Bool[false for j=1:1:N-1]
     ranks = Int64[mindim for j=1:1:N-1] 
 
-    # Initialize comparisson matrices 
+    # Initialize comparison matrices 
     compare_riemann = zeros(nsweeps, 2*(N-1))
     compare_eigen = zeros(nsweeps, 2*(N-1))
 
@@ -116,7 +116,7 @@ function block_dmrg(
             # Do the half-sweep 
             energies, psies, ProjMPO_H, compare_riemann_sw_j, compare_eigen_sw_j = block_dmrg_sweep(N, L, j, Spin, ProjMPO_H, psies, direction, update, ranks, sw, parameter_dmrg, parameter_extra, parameter_backtracking, parameter_optimization, parameter_eigsolve)
             
-            # Update comparisson matrices
+            # Update comparison matrices
             if direction=="left"
                 compare_riemann[sw, j] = compare_riemann_sw_j
                 compare_eigen[sw, j] = compare_eigen_sw_j
@@ -343,7 +343,7 @@ function block_dmrg(
     update = Bool[false for j=1:1:N-1]
     ranks = Int64[mindim for j=1:1:N-1] 
 
-    # Initialize comparisson matrices 
+    # Initialize comparison matrices 
     compare_riemann = zeros(nsweeps, 2*(N-1))
     compare_eigen = zeros(nsweeps, 2*(N-1))
 
@@ -526,3 +526,4 @@ function block_dmrg(
     
     return energies, psies
 end
+
