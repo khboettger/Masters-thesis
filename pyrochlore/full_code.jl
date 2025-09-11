@@ -9,13 +9,13 @@ using ITensors
 include("crystal_structure.jl")
 include("paths.jl")
 include("heisenberg.jl")
-include("../dmrg_for_comparisson/dmrg_for_comparisson.jl")
-include("../block_dmrg/block_dmrg/block_dmrg.jl")
+include("../dmrg_for_comparison/dmrg_for_comparison.jl")
+include("../block_dmrg/block_dmrg.jl")
 
 ## Function used to calculate the energies and states with periodic boundary conditions
 
-# DMRG for comparisson
-function full_code_pyrochlore_for_comparisson(
+# DMRG for comparison
+function full_code_pyrochlore_for_comparison(
     N1::Int64, 
     N2::Int64, 
     N3::Int64,
@@ -63,7 +63,7 @@ function full_code_pyrochlore_for_comparisson(
     H = MPO(os, site)
 
     # Calculate the energies and states using a chosen dmrg method 
-    energies, psies = dmrg_for_comparisson(N, L, Spin, H, psies_initial, parameter_dmrg)
+    energies, psies = dmrg_for_comparison(N, L, Spin, H, psies_initial, parameter_dmrg)
 
     # Returns energies and states (the order of the states is the one chosen by the path)
     return energies, psies, connectivity_matrix
@@ -182,4 +182,5 @@ function full_code_pyrochlore(
 
     # Returns energies and states (the order of the states is the one chosen by the path)
     return energies, psies, connectivity_matrix
+
 end
